@@ -1,0 +1,61 @@
+@startuml
+
+@startuml
+package "Domain" {
+    class Material {
+        -nombre : String
+        -puntosDefensa : int
+        -danioAtaque : int
+        -puntosVidaBase : int
+    }
+
+    class ParteRobot {
+        -material : Material
+
+    }
+
+    class Robot {
+        -String numeroSerie
+        -cabeza : ParteRobot
+        -cuerpo : ParteRobot
+        -brazos : ParteRobot
+        -piernas : ParteRobot
+
+    }
+}
+
+package "Services" {
+    class FabricaRobots {
+        - instancia: FabricaRobots
+        - FabricaRobots()
+        + obtenerInstancia(): FabricaRobots
+        + ensamblarRobot(): Robot
+
+    }
+
+    class SistemaRobotsFacade {
+        - fabrica: FabricaRobots
+        + ensamblarRobot()
+        + editarRobot(numeroSerie: String)
+        + mostrarRobots()
+
+    }
+}
+
+package "UI" {
+    class MenuPrincipal {
+        - sistema: SistemaRobotsFacade
+        + main(args: String[])
+
+    }
+}
+
+Material --> ParteRobot
+ParteRobot --> Robot
+FabricaRobots --> Robot
+SistemaRobotsFacade --> FabricaRobots
+MenuPrincipal --> SistemaRobotsFacade
+
+
+
+@enduml
