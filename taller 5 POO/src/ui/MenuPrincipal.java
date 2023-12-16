@@ -1,5 +1,7 @@
 package ui;
 
+import services.FabricaImpl;
+import services.FabricaRobots;
 import services.SistemaRobotsFacade;
 
 import javax.swing.*;
@@ -9,10 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuPrincipal extends JFrame {
-    private SistemaRobotsFacade sistema = new SistemaRobotsFacade();
+    private FabricaImpl sistema = FabricaImpl.obtenerInstancia();
 
     public MenuPrincipal() {
-        super("Menú Principal");
+        super("Gokai-Oh Emergency Robot Assembly Program");
+
+        System.out.println("¡Bienvenido al programa de creación de robots de emegencia de Gokai-Oh!\nEn Gokai-Oh somos conscientes de la amenaza de nuestros robots y sentimos las molestias ocasionadas,\nEstamos trabajando muy duro para solucionar este problema\n");
 
         JButton ensamblarButton = new JButton("Ensamblar Robot");
         JButton editarButton = new JButton("Editar Robot");
@@ -30,9 +34,20 @@ public class MenuPrincipal extends JFrame {
         editarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String numeroSerie = JOptionPane.showInputDialog(MenuPrincipal.this, "Ingrese el número de serie del robot a editar:");
-                sistema.editarRobot(numeroSerie);
-                JOptionPane.showMessageDialog(MenuPrincipal.this, "Robot editado correctamente");
+                String numeroSerie = "";
+                try {
+                    numeroSerie = JOptionPane.showInputDialog(MenuPrincipal.this, "Ingrese el número de serie del robot a editar:");
+
+                    if ((!numeroSerie.equals("")) && (!numeroSerie.equals(" ")) && (!numeroSerie.equals(".")) && (!(numeroSerie == null))) {
+                        sistema.editarRobot(numeroSerie);
+                        JOptionPane.showMessageDialog(MenuPrincipal.this, "Robot editado correctamente");
+                    } else {
+                        JOptionPane.showMessageDialog(MenuPrincipal.this, "Por favor ingrese una serie");
+                    }
+                }
+                catch(NullPointerException exception){
+                    System.out.println("Has cancelado la edición de robots");
+                }
             }
         });
 
@@ -40,14 +55,14 @@ public class MenuPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sistema.mostrarRobots();
-                // Lógica para mostrar la información de todos los robots en una ventana
+                // Lógica para mostrar la información de todos los robots
             }
         });
 
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Puedes agregar lógica de limpieza o guardar datos antes de salir
+                sistema.salir();
                 System.exit(0);
             }
         });

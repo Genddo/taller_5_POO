@@ -6,44 +6,75 @@ public class Robot {
     private ParteRobot cuerpo;
     private ParteRobot brazos;
     private ParteRobot piernas;
+    private int puntosDefensa;
+    private int danioAtaque;
+    private int puntosVidaBase;
 
-    public Robot(String numeroSerie, ParteRobot cabeza, ParteRobot cuerpo, ParteRobot brazos, ParteRobot piernas) {
-        this.numeroSerie = numeroSerie;
-        this.cabeza = cabeza;
-        this.cuerpo = cuerpo;
-        this.brazos = brazos;
-        this.piernas = piernas;
+    public int getPuntosDefensa() {
+        return puntosDefensa;
+    }
+
+    public void setPuntosDefensa(int puntosDefensa) {
+        this.puntosDefensa = puntosDefensa;
+    }
+
+    public int getDanioAtaque() {
+        return danioAtaque;
+    }
+
+    public void setDanioAtaque(int danioAtaque) {
+        this.danioAtaque = danioAtaque;
+    }
+
+    public int getPuntosVidaBase() {
+        return puntosVidaBase;
+    }
+
+    public void setPuntosVidaBase(int puntosVidaBase) {
+        this.puntosVidaBase = puntosVidaBase;
+    }
+
+    public Robot() {
+
     }
 
     public String getNumeroSerie() {
         return numeroSerie;
     }
 
-    public void mostrarDetalles() {
-        System.out.println("Número de Serie: " + numeroSerie);
-        System.out.println("Cabeza: " + cabeza.material.nombre);
-        System.out.println("Cuerpo: " + cuerpo.material.nombre);
-        System.out.println("Brazos: " + brazos.material.nombre);
-        System.out.println("Piernas: " + piernas.material.nombre);
-        // Mostrar otras propiedades según sea necesario
+    public ParteRobot getCabeza() {
+        return cabeza;
     }
 
-    public void editarParte(ParteRobot nuevaParte, String tipoParte) {
-        switch (tipoParte.toLowerCase()) {
-            case "cabeza":
-                cabeza = nuevaParte;
-                break;
-            case "cuerpo":
-                cuerpo = nuevaParte;
-                break;
-            case "brazos":
-                brazos = nuevaParte;
-                break;
-            case "piernas":
-                piernas = nuevaParte;
-                break;
-            default:
-                System.out.println("Tipo de parte no válido");
-        }
+    public ParteRobot getCuerpo() {
+        return cuerpo;
+    }
+
+    public ParteRobot getBrazos() {
+        return brazos;
+    }
+
+    public ParteRobot getPiernas() {
+        return piernas;
+    }
+
+    public void setNumeroSerie(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
+    }
+
+    public void setCabeza(ParteRobot cabeza) {
+        this.cabeza = cabeza;
+    }
+
+    public void setCuerpo(ParteRobot cuerpo) {
+        this.cuerpo = cuerpo;
+    }
+
+    public void setBrazos(ParteRobot brazos) {
+        this.brazos = brazos;
+    }
+
+    public void setPiernas(ParteRobot piernas) {
+        this.piernas = piernas;
     }
 }
