@@ -7,6 +7,12 @@ import java.util.Scanner;
 public class SistemaRobotsFacade {
     private FabricaRobots fabrica = FabricaRobots.obtenerInstancia();
 
+    /**
+     * método que ensambla un robot
+     * @param modo
+     * @param serie
+     * @return
+     */
     public Robot ensamblarRobot(String modo, String serie) {
         Robot nuevoRobot = fabrica.ensamblarRobot(modo, serie);
         if (modo.equals("crear")) {
@@ -16,10 +22,19 @@ public class SistemaRobotsFacade {
         }
         return nuevoRobot;
     }
+
+    /**
+     * método que crea un robot
+     * @return
+     */
     public Robot crearRobot(){
         return ensamblarRobot("crear", "");
     }
 
+    /**
+     * método que edita un robot dado un número de serie
+     * @param numeroSerie
+     */
     public void editarRobot(String numeroSerie) {
         Robot curRobot = fabrica.buscarRobotPorNumeroSerie(numeroSerie);
 
@@ -30,6 +45,9 @@ public class SistemaRobotsFacade {
         }
     }
 
+    /**
+     * método que muestra todos los robots disponibles
+     */
     public void mostrarRobots() {
         if (getListaRobots().size() > 0) {
             for (Robot robot : getListaRobots()) {
@@ -42,14 +60,28 @@ public class SistemaRobotsFacade {
             fabrica.separador();
         }
     }
+
+    /**
+     * método que destruye los datos de la lista de robots, para evitar dejar un rastro a los robots malvados
+     */
     public void destruccionDatos(){
         print("Eliminando lista de robots creados...");
         getListaRobots().clear();
         print("Cerrando programa...");
     }
+
+    /**
+     * método que obtiene la lista de los robots
+     * @return
+     */
     public ArrayList<Robot> getListaRobots(){
         return fabrica.getListaRobots();
     }
+
+    /**
+     * método para simplificar la salida de mensajes
+     * @param mensaje
+     */
     private void print(Object mensaje){
         System.out.println(mensaje);
     }

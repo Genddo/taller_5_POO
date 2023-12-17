@@ -14,15 +14,19 @@ public class MenuPrincipal extends JFrame {
     private FabricaImpl sistema = FabricaImpl.obtenerInstancia();
 
     public MenuPrincipal() {
+        //titulo de la ventana
         super("Gokai-Oh Emergency Robot Assembly Program");
 
+        //bienvenida al usuario explicando la situación
         System.out.println("¡Bienvenido al programa de creación de robots de emegencia de Gokai-Oh!\nEn Gokai-Oh somos conscientes de la amenaza de nuestros robots y sentimos las molestias ocasionadas,\nEstamos trabajando muy duro para solucionar este problema\n");
 
+        //botones
         JButton ensamblarButton = new JButton("Ensamblar Robot");
         JButton editarButton = new JButton("Editar Robot");
         JButton mostrarButton = new JButton("Mostrar Robots");
         JButton salirButton = new JButton("Salir");
 
+        //listeners de los botones
         ensamblarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,6 +80,7 @@ public class MenuPrincipal extends JFrame {
         add(panel);
     }
 
+    //main
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             MenuPrincipal menu = new MenuPrincipal();

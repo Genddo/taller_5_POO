@@ -13,10 +13,16 @@ public class FabricaRobots {
     private Random generadorNumeroSerie = new Random();
     private ArrayList<Robot> listaRobots = new ArrayList<>();
 
+    /**
+     * Constructor privado para evitar la creación de instancias
+     */
     private FabricaRobots() {
-        // Constructor privado para evitar la creación de instancias
     }
 
+    /**
+     * método que permite el patrón de diseño Singleton
+     * @return
+     */
     public static FabricaRobots obtenerInstancia() {
         if (instancia == null) {
             instancia = new FabricaRobots();
@@ -24,6 +30,12 @@ public class FabricaRobots {
         return instancia;
     }
 
+    /**
+     * método que permite ensamblar un robot
+     * @param modo
+     * @param serie
+     * @return
+     */
     public Robot ensamblarRobot(String modo, String serie) {
         if (modo.equals("crear")){
             print("Crear un robot: ");
@@ -53,6 +65,19 @@ public class FabricaRobots {
         // Devolver el robot ensamblado
         return nuevoRobot;
     }
+
+    /**
+     * método que crea un robot luego de ser ensamblado
+     * @param serie
+     * @param cabeza
+     * @param cuerpo
+     * @param brazos
+     * @param piernas
+     * @param def
+     * @param atq
+     * @param hp
+     * @return
+     */
     private Robot crearRobot(String serie, ParteRobot cabeza, ParteRobot cuerpo, ParteRobot brazos, ParteRobot piernas, int def, int atq, int hp){
         Robot newRobot = new Robot();
         newRobot.setNumeroSerie(serie);
@@ -65,6 +90,18 @@ public class FabricaRobots {
         newRobot.setPuntosVidaBase(hp);
         return newRobot;
     }
+
+    /**
+     * método para editar un robot, luego de que los datos han sido espeficiados
+     * @param robot
+     * @param cabeza
+     * @param cuerpo
+     * @param brazos
+     * @param piernas
+     * @param def
+     * @param atq
+     * @param hp
+     */
     private void editarRobot(Robot robot, ParteRobot cabeza, ParteRobot cuerpo, ParteRobot brazos, ParteRobot piernas, int def, int atq, int hp){
         robot.setCabeza(cabeza);
         robot.setCuerpo(cuerpo);
@@ -75,6 +112,12 @@ public class FabricaRobots {
         robot.setPuntosVidaBase(hp);
     }
 
+    /**
+     * método que ensambla la parte del robot luego de solicitar al usuario el material de este
+     * @param pronombre
+     * @param tipoParte
+     * @return
+     */
     private ParteRobot ensamblarParteRobot(String pronombre, String tipoParte) {
         TipoMaterial material = solicitarMaterialAlUsuario(pronombre, tipoParte);
         int def = 0;
@@ -101,6 +144,12 @@ public class FabricaRobots {
         return parte;
     }
 
+    /**
+     * método que solicita al usuario el ingreso de un material
+     * @param pronombre
+     * @param tipoParte
+     * @return
+     */
     private TipoMaterial solicitarMaterialAlUsuario(String pronombre, String tipoParte) {
         separador();
         // solicitar material para una parte del robot
@@ -132,6 +181,11 @@ public class FabricaRobots {
         }
         return tipoMaterial;
     }
+
+    /**
+     * método que muestra los detalles de un robot en especifico
+     * @param serie
+     */
     public void mostrarDetalles(String serie) {
         separador();
         Robot robot = buscarRobotPorNumeroSerie(serie);
@@ -147,6 +201,10 @@ public class FabricaRobots {
         separador();
     }
 
+    /**
+     * método que genera un número de serie
+     * @return
+     */
     private String generarNumeroSerieAleatorio() {
 
         // Genera un número de serie aleatorio de 4 letras y 2 números
@@ -161,6 +219,12 @@ public class FabricaRobots {
         }
         return numeroSerie.toString();
     }
+
+    /**
+     * método que busca un robot dado un número de serie
+     * @param numeroSerie
+     * @return
+     */
     public Robot buscarRobotPorNumeroSerie(String numeroSerie) {
         for (Robot robot : getListaRobots()) {
             if (robot.getNumeroSerie().equalsIgnoreCase(numeroSerie)) {
@@ -169,24 +233,47 @@ public class FabricaRobots {
         }
         return null;
     }
+
+    /**
+     * método que obtiene la lista de los robots
+     * @return
+     */
     public ArrayList<Robot> getListaRobots(){
         return listaRobots;
     }
 
+    /**
+     * método para simplificar la entrada de datos
+     * @param mensaje
+     * @return
+     */
     private String input(Object mensaje){
         Scanner s = new Scanner(System.in);
         System.out.println(mensaje);
         return s.nextLine();
     }
+
+    /**
+     * método para simplificar la salida de datos
+     * @param mensaje
+     */
     private void print(Object mensaje){
         System.out.println(mensaje);
     }
+
+    /**
+     * método para simplificar la muestra de errores al usuario
+     * @param tipoDato
+     * @return
+     */
     private String msgError(String tipoDato){
         return "Ha ingresado " + tipoDato + " inválido, por favor inténtelo de nuevo";
     }
+
+    /**
+     * método para simplicifar la separación de datos
+     */
     public void separador(){
         System.out.println("-----------------------------\n");
     }
-
-    // Otros métodos según sea necesario
 }

@@ -2,44 +2,106 @@
 
 @startuml
 package "Domain" {
-    class Material {
-        -nombre : String
-        -puntosDefensa : int
-        -danioAtaque : int
-        -puntosVidaBase : int
+    enum TipoMaterial {
+        METAL,
+        ACERO,
+        GRAFENO,
+        VIBRANIUM
     }
 
     class ParteRobot {
-        -material : Material
+        -material : TipoMaterial
+        -puntosDefensa : int
+        -danioAtaque : int
+        -puntosVidaBase : int
+        +ParteRobot(material : Material, puntosDefensa : int, danioAtaque : int, puntosVidaBase : int)
+        +getPuntosDefensa() : int
+        +getDanioAtaque() : int
+        +getPuntosVidaBase() : int
+        +toString() : String
 
     }
 
     class Robot {
-        -String numeroSerie
-        -cabeza : ParteRobot
-        -cuerpo : ParteRobot
-        -brazos : ParteRobot
-        -piernas : ParteRobot
+      - numeroSerie: String
+      - cabeza: ParteRobot
+      - cuerpo: ParteRobot
+      - brazos: ParteRobot
+      - piernas: ParteRobot
+      - puntosDefensa: int
+      - danioAtaque: int
+      - puntosVidaBase: int
 
+      + getPuntosDefensa(): int
+      + setPuntosDefensa(puntosDefensa: int): void
+      + getDanioAtaque(): int
+      + setDanioAtaque(danioAtaque: int): void
+      + getPuntosVidaBase(): int
+      + setPuntosVidaBase(puntosVidaBase: int): void
+      + Robot()
+      + getNumeroSerie(): String
+      + getCabeza(): ParteRobot
+      + getCuerpo(): ParteRobot
+      + getBrazos(): ParteRobot
+      + getPiernas(): ParteRobot
+      + setNumeroSerie(numeroSerie: String): void
+      + setCabeza(cabeza: ParteRobot): void
+      + setCuerpo(cuerpo: ParteRobot): void
+      + setBrazos(brazos: ParteRobot): void
+      + setPiernas(piernas: ParteRobot): void
     }
 }
 
 package "Services" {
     class FabricaRobots {
-        - instancia: FabricaRobots
-        - FabricaRobots()
-        + obtenerInstancia(): FabricaRobots
-        + ensamblarRobot(): Robot
+      - instancia: FabricaRobots
+      - generadorNumeroSerie: Random
+      - listaRobots: ArrayList<Robot>
 
+      + obtenerInstancia(): FabricaRobots
+      + ensamblarRobot(modo: String, serie: String): Robot
+      + crearRobot(serie: String, cabeza: ParteRobot, cuerpo: ParteRobot, brazos: ParteRobot, piernas: ParteRobot, def: int, atq: int, hp: int): Robot
+      + editarRobot(robot: Robot, cabeza: ParteRobot, cuerpo: ParteRobot, brazos: ParteRobot, piernas: ParteRobot, def: int, atq: int, hp: int): void
+      + ensamblarParteRobot(pronombre: String, tipoParte: String): ParteRobot
+      + solicitarMaterialAlUsuario(pronombre: String, tipoParte: String): TipoMaterial
+      + mostrarDetalles(serie: String): void
+      + generarNumeroSerieAleatorio(): String
+      + buscarRobotPorNumeroSerie(numeroSerie: String): Robot
+      + getListaRobots(): ArrayList<Robot>
+      + input(mensaje: Object): String
+      + print(mensaje: Object): void
+      + msgError(tipoDato: String): String
+      + separador(): void
     }
 
     class SistemaRobotsFacade {
-        - fabrica: FabricaRobots
-        + ensamblarRobot()
-        + editarRobot(numeroSerie: String)
-        + mostrarRobots()
+      - fabrica: FabricaRobots
 
+      + ensamblarRobot(modo: String, serie: String): Robot
+      + crearRobot(): Robot
+      + editarRobot(numeroSerie: String): void
+      + mostrarRobots(): void
+      + destruccionDatos(): void
+      + getListaRobots(): ArrayList<Robot>
+      + print(mensaje: Object): void
     }
+    class FabricaImpl {
+      - instancia: FabricaImpl
+      - sistema: SistemaRobotsFacade
+
+      + obtenerInstancia(): FabricaImpl
+      + ensamblarRobot(): Robot
+      + editarRobot(serie: String): void
+      + mostrarRobots(): void
+      + salir(): void
+    }
+    interface Fabrica {
+      + ensamblarRobot(): Robot
+      + editarRobot(serie: String): void
+      + mostrarRobots(): void
+      + salir(): void
+    }
+
 }
 
 package "UI" {
@@ -50,11 +112,13 @@ package "UI" {
     }
 }
 
-Material --> ParteRobot
+TipoMaterial --> ParteRobot
 ParteRobot --> Robot
 FabricaRobots --> Robot
 SistemaRobotsFacade --> FabricaRobots
 MenuPrincipal --> SistemaRobotsFacade
+FabricaImpl --> Fabrica
+Fabrica --> SistemaRobotsFacade
 
 
 

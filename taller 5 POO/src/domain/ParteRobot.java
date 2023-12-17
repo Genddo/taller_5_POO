@@ -6,38 +6,72 @@ public class ParteRobot {
     private int danioAtaque;
     private int puntosVidaBase;
 
-    // Constructor
+    /**
+     * constructor de la clase
+     * @param material
+     * @param puntosDefensa
+     * @param danioAtaque
+     * @param puntosVidaBase
+     */
     public ParteRobot(TipoMaterial material, int puntosDefensa, int danioAtaque, int puntosVidaBase) {
         this.material = material;
         this.puntosDefensa = puntosDefensa;
         this.danioAtaque = danioAtaque;
         this.puntosVidaBase = puntosVidaBase;
     }
-    // Método para cambiar el material de la parte del robot
-    public void cambiarMaterial(TipoMaterial nuevoMaterial) {
-        this.material = nuevoMaterial;
-    }
 
-    // Método para recalcular las estadísticas después de cambiar el material
-    public void recalcularEstadisticas() {
-
-    }
-
-    // Métodos para obtener propiedades del material
+    /**
+     * getter de los puntos de defensa
+     * @return
+     */
     public int getPuntosDefensa() {
         return puntosDefensa;
     }
 
+    /**
+     * setter de los puntos de defensa
+     * @param puntosDefensa
+     */
+    public void setPuntosDefensa(int puntosDefensa) {
+        this.puntosDefensa = puntosDefensa;
+    }
+
+    /**
+     * getter de los puntos de ataque
+     * @return
+     */
     public int getDanioAtaque() {
         return danioAtaque;
     }
 
+    /**
+     * setter de los puntos de ataque
+     * @param danioAtaque
+     */
+    public void setDanioAtaque(int danioAtaque) {
+        this.danioAtaque = danioAtaque;
+    }
+
+    /**
+     * getter de los puntos de vida
+     * @return
+     */
     public int getPuntosVidaBase() {
         return puntosVidaBase;
     }
 
-    // Puedes agregar más métodos según sea necesario
+    /**
+     * setter de los puntos de vida
+     * @param puntosVidaBase
+     */
+    public void setPuntosVidaBase(int puntosVidaBase) {
+        this.puntosVidaBase = puntosVidaBase;
+    }
 
+    /**
+     * método para convertir la clase a una clase String
+     * @return
+     */
     @Override
     public String toString() {
         return "Material{" +
@@ -46,21 +80,5 @@ public class ParteRobot {
                 ", atq =" + danioAtaque +
                 ", HP =" + puntosVidaBase +
                 '}';
-    }
-
-    public void setPuntosDefensa(int puntosDefensa) {
-        this.puntosDefensa = puntosDefensa;
-    }
-
-    public void setDanioAtaque(int danioAtaque) {
-        this.danioAtaque = danioAtaque;
-    }
-
-    public void setPuntosVidaBase(int puntosVidaBase) {
-        this.puntosVidaBase = puntosVidaBase;
-    }
-
-    public TipoMaterial getMaterial() {
-        return material;
     }
 }
